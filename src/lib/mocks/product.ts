@@ -6,9 +6,13 @@ export type ProductDetailSection = { title: string; body: string };
 export type ProductSpec = { label: string; value: string };
 export type ProductReview = { rating: number; title: string; body: string; author: string };
 
+// Shape mock de solo lectura: omite los campos de administración del backend
+// (isActive, categoryId) que este catálogo de ejemplo no necesita modelar.
+type MockProductBase = Omit<Product, 'isActive' | 'categoryId'>;
+
 // Tarjeta liviana usada en grillas (home, relacionados) — se deriva de
 // ProductDetail vía toProductCard(), nunca se mantiene a mano.
-export type ProductCardData = Product & {
+export type ProductCardData = MockProductBase & {
   placeholderLabel: string;
   badge?: string;
   compareAtPrice?: string;
@@ -16,7 +20,7 @@ export type ProductCardData = Product & {
   savingsLabel?: string;
 };
 
-export type ProductDetail = Product & {
+export type ProductDetail = MockProductBase & {
   category: string;
   eyebrow: string;
   compareAtPrice?: string;

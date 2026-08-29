@@ -17,7 +17,9 @@ cp .env.example .env.local   # apunta NEXT_PUBLIC_API_URL a la API
 npm run dev                  # http://localhost:3000
 ```
 
-Requiere `backend-maxwear` corriendo en `http://localhost:4000`.
+`NEXT_PUBLIC_API_URL` apunta por defecto a `backend-maxwear` desplegado en Render
+(`https://backend-maxwear.onrender.com/api/v1`). Para correr contra una instancia
+local, sobrescribe esa variable en `.env.local` con `http://localhost:4000/api/v1`.
 
 ## Scripts
 

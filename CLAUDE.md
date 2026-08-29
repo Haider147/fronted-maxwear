@@ -4,6 +4,34 @@ Guía para Claude Code al trabajar en este repositorio. Este proyecto es
 **independiente**: no comparte código, convenciones ni contexto con otros
 proyectos en los que el usuario haya trabajado.
 
+## Regla crítica: nunca tocar el backend
+
+Este repositorio (`frontend-maxwear`) contiene **únicamente el frontend**. El backend vive en un
+proyecto/repositorio separado (`backend-maxwear`, `http://localhost:4000`) que **no** forma parte
+de este working directory.
+
+- **Nunca**, bajo ninguna circunstancia, edites, ejecutes, instales, configures ni modifiques nada
+  perteneciente al backend (código, base de datos, infraestructura, variables de entorno del
+  servidor, despliegues, etc.), aunque tengas acceso técnico a hacerlo o el cambio parezca trivial.
+- Esto aplica incluso si arreglar el backend parece la solución más rápida o evidente a un problema.
+- El frontend solo debe consumir la API a través de `NEXT_PUBLIC_API_URL` (ver `.env.example`),
+  nunca modificar cómo esa API está implementada.
+
+### Qué hacer si algo falla y parece un problema de backend
+
+Si durante el desarrollo, testing o debugging se detecta un fallo, bug, comportamiento inesperado
+o limitación que parece originarse en el backend (API, base de datos, autenticación del servidor,
+endpoints, etc.):
+
+1. **No intentes arreglarlo ni rodearlo modificando el backend.**
+2. Diagnostica y documenta el problema desde el lado del frontend (request/response, endpoint
+   afectado, payload, status code, pasos para reproducir).
+3. **Propón siempre generar un reporte para el equipo de backend** con esa información, en lugar
+   de intentar resolverlo directamente.
+4. Si es posible, implementa un manejo de error / fallback en el frontend mientras el equipo de
+   backend investiga, pero deja claro que es una mitigación temporal, no una corrección del
+   problema real.
+
 ## Qué es
 
 Frontend de **Maxwear**, tienda online. Consume la API de `backend-maxwear`

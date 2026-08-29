@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { CartProvider } from '@/hooks/useCart';
 import { env } from '@/lib/env';
+import { Providers } from './providers';
 import './globals.css';
 
 const archivo = Archivo({
@@ -41,13 +42,15 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       className={`${archivo.variable} ${instrumentSerif.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-fondo font-sans text-tinta">
-        <CartProvider>
-          <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col bg-crema">
-            <Header />
-            <main className="flex flex-1 flex-col">{children}</main>
-            <Footer />
-          </div>
-        </CartProvider>
+        <Providers>
+          <CartProvider>
+            <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col bg-crema">
+              <Header />
+              <main className="flex flex-1 flex-col">{children}</main>
+              <Footer />
+            </div>
+          </CartProvider>
+        </Providers>
       </body>
     </html>
   );

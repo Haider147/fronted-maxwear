@@ -2,12 +2,14 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/react';
 import { useCart } from '@/hooks/useCart';
 
 const navLinks = ['Boxers', 'Packs', 'Tela fría', 'Max'];
 
 export function Header() {
   const { itemCount } = useCart();
+  const { data: session, status } = useSession();
 
   return (
     <header>
@@ -29,9 +31,24 @@ export function Header() {
           <a href="#" className="hover:text-terracota">
             Buscar
           </a>
-          <a href="#" className="hover:text-terracota">
-            Cuenta
-          </a>
+          {status === 'authenticated' && session ? (
+            <span className="flex items-center gap-4">
+              <Link href="/cuenta" className="hover:text-terracota">
+                {session.user.name}
+              </Link>
+              <button
+                type="button"
+                onClick={() => signOut({ callbackUrl: '/' })}
+                className="hover:text-terracota"
+              >
+                Cerrar sesión
+              </button>
+            </span>
+          ) : (
+            <Link href="/login" className="hover:text-terracota">
+              Cuenta
+            </Link>
+          )}
           <a href="#" className="flex items-center gap-2 hover:text-terracota">
             Bolsa
             <span className="inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-terracota text-xs text-crema-2">
